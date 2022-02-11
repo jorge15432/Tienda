@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Redressed&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    
+}
+
+body{
+    margin:0;
+    padding:0;
+    background:linear-gradient(120deg,	#9400D3,#00CED1);
+    height:100vh;
+    overflow:hidden;
+    
+}
+
+.content{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:400px;
+    background:white;
+    border-radius:10px;
+    box-shadow: 10px 10px 15px rgba (0, 0, 255, 1.00);
+    transform:translate(-50%,-50%);
+    
+}
+.content h1{
+    text-align:center;
+    padding:20px 0;
+    border-bottom:1px solid silver;
+    background:#ff0000;;
+    
+    
+}
+.content form{
+    padding:0 40px;
+    box-sizing:border-box;
+    
+    
+}
+
+form.txt_field{
+    position:relative;
+    border-bottom: 2px solid #ff0000;
+    margin:30px 0;
+    
+    
+}
+
+
+.signup_link a:hover{
+    letter-spacing:4px;
+    background:	#F08080;
+    transform:scale(0.5) translateY(-40px);
+}
+
+ 
