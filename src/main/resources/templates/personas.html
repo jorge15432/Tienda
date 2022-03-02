@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+
+
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<title>TODO supply a title</title>
+
+</head>
+<body>
+<h1 th:text="${titulo}"></h1>
+<table>
+<th:block th:each="user : ${personas}">
+<tr>
+<td th:text="${user.getApellido1}"></td>
+<td th:text="${user.getEmail}"></td>
+</tr>
+</th:block>
+</table>
+
+</body>
+</html>
