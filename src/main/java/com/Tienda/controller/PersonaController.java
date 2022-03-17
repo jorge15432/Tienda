@@ -1,6 +1,8 @@
 package com.Tienda.controller;
 
+import com.Tienda.entity.Pais;
 import com.Tienda.entity.Persona;
+import com.Tienda.service.IPaisService;
 import com.Tienda.service.IPersonaService;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,8 @@ public class PersonaController {
 
     @Autowired
     private IPersonaService personaService;
+@Autowired
+private IPaisService paisService;
 
     @GetMapping("/personas")
     public String index(Model model) {
@@ -30,7 +34,9 @@ public class PersonaController {
 
 @GetMapping("/personasN")
 public String crearPersona(Model model){
-model.addAttribute("persona",new Persona());
+List<Pais> listaPais=paisService.listCountry();
+model.addAttribute("personas",new Persona());
+model.addAttribute("paises", listaPais);
 return "crear";
 }
 
