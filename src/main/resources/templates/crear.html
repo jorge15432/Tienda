@@ -7,20 +7,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <head th:replace="plantilla/templates::head">  
     </head>
     <body>
-        <header th:replace="plantilla/templates::header"> </header>
+        <header th:replace="plantilla/templates::header"> </header>  
         <h1>Datos del Cliente</h1>
         <a th:href="@{/}">Regresar</a>
         <br>
-        <form th:action="@{/save}"
-              method="post"@
-              th:object="${personas}">
+        <form th:object="${personas}"
+              th:action="@{/save}"
+              method="POST"
+              >
+            <input type="hidden" th:field="*{id}">
+            
             <label for="nombre">Nombre:</label>
             <input type="text" name="nombre" th:field="*{nombre}"/>
             <br>
             <label for="apellido1">Prime Apellido:</label>
             <input type="text" name="apellido1" th:field="*{apellido1}"/>
             <br>
-             <label for="apellido2">Segundo Apellido:</label>
+            <label for="apellido2">Segundo Apellido:</label>
             <input type="text" name="apellido2" th:field="*{apellido2}"/>
             <br>
             <label for="email">Correo:</label>
@@ -28,6 +31,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <br>
             <label for="telefono">Telefono:</label>
             <input type="tel" name="telefono" th:field="*{telefono}"/>
+            <br>
+            <select th:field="*{pais}">
+                <option th:each="x:${paises}"
+                        th:value="${x.id}"
+                        th:text="${x.pais}"/>
+                </select>
             <br>
             <input type="submit" name="guardar" value="Guardar"/>
         </form>

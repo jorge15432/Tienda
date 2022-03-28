@@ -45,6 +45,14 @@ public String guardarPersona(Persona persona){
 personaService.savePerson(persona);
 return "redirect:/personas";
 }
+@GetMapping ("/editPersona/{id}")
+public String editarPersona(@PathVariable("id") Long idPersona, Model model){
+Persona persona=personaService.getPersonaById(idPersona);
+List<Pais> listaPais=paisService.listCountry();
+model.addAttribute("personas",persona);
+model.addAttribute("paises",listaPais);
+return"crear";
+}
 @GetMapping("delete/{id}")
 public String eliminarPersona (@PathVariable("id")Long idPersona)
 {
