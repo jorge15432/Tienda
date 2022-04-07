@@ -37,7 +37,10 @@ return personaRepository.findById(id).orElse(null);
 public void delete(long id){
 personaRepository.deleteById(id);
 }
-
+@Override
+public Persona findByNombre(String nombre){
+return personaRepository.findByNombre(nombre);
+}
 
 
 
