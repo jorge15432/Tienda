@@ -8,7 +8,6 @@ package com.Tienda;
  *
  * @author OMEN
  */
-
 import com.Tienda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,47 +26,53 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
- @Autowired
-private UserService userDetailsService;
+    @Autowired
+    private UserService userDetailsService;
 
- @Bean
-public BCryptPasswordEncoder passwordEncoder() {
-return new BCryptPasswordEncoder();
-}
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
- @Bean
-DaoAuthenticationProvider authenticationProvider(){
-DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-daoAuthenticationProvider.setUserDetailsService((UserDetailsService) this.userDetailsService);
+    @Bean
+    DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider.setUserDetailsService((UserDetailsService) this.userDetailsService);
 
- return daoAuthenticationProvider;
-}
-public SecurityConfig(UserService userPrincipalDetailsService) {
-this.userDetailsService = userPrincipalDetailsService;
-}
+        return daoAuthenticationProvider;
+    }
 
- @Override
-protected void configure(AuthenticationManagerBuilder auth) {
-auth.authenticationProvider(authenticationProvider());
-}
+    public SecurityConfig(UserService userPrincipalDetailsService) {
+        this.userDetailsService = userPrincipalDetailsService;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(authenticationProvider());
+    }
 //El siguiente método funciona para hacer la autenticación del usuario
-@Override
-protected void configure(HttpSecurity http) throws Exception {
-http.authorizeRequests()
-.antMatchers("/persona")
-.hasRole("ADMIN")
-.antMatchers("/personasN","/persona")
-.hasAnyRole("USER", "VENDEDOR","ADMIN")
-.antMatchers("/")
-.hasAnyRole("USER", "VENDEDOR", "ADMIN")
-.and()
-.formLogin()
-.loginPage("/")
-.loginProcessingUrl("/signin").permitAll();
-}
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/personas")
+                .hasRole("ADMIN")
+                .antMatchers("/personasN", "/personas", "/")
+                .hasAnyRole("USER", "VENDEDOR", "ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin();
+                /*.loginPage("/login").permitAll()
+                .usernameParameter("txtUsername")
+                .passwordParameter("txtPassword")
+                .and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+                .and()
+                .rememberMe().tokenValiditySeconds(2592000).key("mySecret!").rememberMeParameter("checkRememberMe");
+        http.csrf().disable();*/
+
+    }
 //El siguiente método funciona parsa realizar la autorización de accesos
 
 }
-    
-

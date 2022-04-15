@@ -8,9 +8,9 @@ import org.springframework.stereotype.Controller;
 public class LoginController {
     
 
-@GetMapping({"/","/perro"})
+@GetMapping("/login")
 public String index(){
 
-return "Login";
+return "login";
 }
 }
